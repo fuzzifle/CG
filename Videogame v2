@@ -1,0 +1,63 @@
+import pygame 
+
+pygame.init()
+
+WIN_HEIGHT = 500
+WIN_WIDTH = 500
+
+win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+pygame.display.set_caption("Game")
+
+# Background
+background = pygame.image.load('backgroundv2.jpg')
+
+# characters icon
+PlayerImg = pygame.image.load('luigi.png')
+playerX = 250
+playerY = 250
+
+def player(x, y):
+    win.blit(PlayerImg, (x, y))
+
+
+running = True
+
+def movement_boundraries():
+    #movement
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RIGHT:
+            playerX += 2
+            PlayerImg = pygame.image.load('luigi.png')
+        elif event.key == pygame.K_LEFT:
+            playerX -= 10
+            PlayerImg = pygame.image.load('luigi_left.png')
+        elif event.key == pygame.K_UP:
+            playerY -= 10
+        elif event.key == pygame.K_DOWN:
+            playerY += 10
+    # boundaries
+    if playerX >= 0:
+        playerX = 0
+    if playerX >= 1000:
+        playerX = 1000
+    if playerY >= 500:
+        playerY = 500
+    if playerY <= 0:
+        playerY = 0
+
+
+while running:
+    pygame.time.delay(50)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+
+    # Functions
+    movement_boundraries()
+
+    win.blit(background, (0,0))
+    player(playerX,playerY)
+    pygame.display.update()
+pygame.quit()
